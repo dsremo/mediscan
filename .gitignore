@@ -1,0 +1,39 @@
+# Data
+data/
+*.zip
+*.tar.gz
+*.h5
+*.npy
+*.pkl
+
+# Models
+models/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.gguf
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+
+# Environment
+.env
+*.key
+*.pem
