@@ -35,29 +35,15 @@ MediScan puts triage support directly into the hands of community health workers
 
 ## Architecture
 
-```
-+---------------------+
-| Camera / mic / text |
-+----------+----------+
-           |
-           v
-+---------------------+
-| Gemma 4 E4B (LoRA)  |       fine-tuned with Unsloth on a single Kaggle T4
-| 4-bit GGUF          |       no quantization-aware retraining needed
-| ~3 GB on disk       |
-+----------+----------+
-           |
-           v
-+---------------------+       +-----------------------+
-| Triage output       | ----> | Function calls:       |
-| { urgency, summary, |       |  - first_aid(cond)    |
-|   first_aid }       |       |  - medication_reminder|
-+----------+----------+       |  - find_nearest_clinic|
-           |                  +-----------------------+
-           v
-+---------------------+
-| Android UI          |       runtime: Ollama / llama.cpp / MediaPipe
-+---------------------+
+```mermaid
+flowchart TD
+  IN["Photo / voice / text"] --> APP[MediScan app]
+  APP --> G["Gemma 4 E4B<br/>on-device · 4-bit quantized"]
+  G --> TR["Structured triage<br/>low / moderate / high / emergency"]
+  G --> FC["Function calls:<br/>first aid · med reminders · clinic finder"]
+  TR --> U[Community health worker]
+  FC --> U
+  APP -. "no internet required" .-> APP
 ```
 
 ## Tech stack
