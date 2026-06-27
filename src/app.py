@@ -18,12 +18,14 @@ try:
         parse_triage_response, format_triage_for_display,
         UrgencyLevel, TriageResult
     )
+    from safety import escalate_for_safety
 except ImportError:
     from src.mediscan_core import (
         SYSTEM_PROMPT, MEDISCAN_TOOLS,
         parse_triage_response, format_triage_for_display,
         UrgencyLevel, TriageResult
     )
+    from src.safety import escalate_for_safety
 
 
 # Global model reference (loaded once)
@@ -120,6 +122,7 @@ def analyze_condition(image: Optional[Image.Image], symptoms: str, history: list
     # Try structured parsing
     triage = parse_triage_response(response)
     if triage:
+        triage, _red_flags = escalate_for_safety(triage, symptoms or "")
         display = format_triage_for_display(triage)
     else:
         display = response

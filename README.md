@@ -32,6 +32,7 @@ MediScan puts triage support directly into the hands of community health workers
 - **Offline-first** — runs on a mid-range Android phone via Gemma 4 E4B (4.5B params, 4-bit quantized, ~3 GB on disk)
 - **Privacy by construction** — no patient data ever leaves the device, so HIPAA / DPDP / GDPR are non-questions
 - **22 skin conditions** — fine-tuned on a CC0 dermatology dataset
+- **Deterministic emergency safety net** — a rule layer (`src/safety.py`) scans the symptom text for hard red flags (airway/anaphylaxis, spreading infection/sepsis, necrosis, systemic deterioration, high-risk patients) and force-escalates the triage to EMERGENCY regardless of the model's own rating, so a genuine emergency is never under-triaged by an LLM miss
 
 ## Architecture
 
